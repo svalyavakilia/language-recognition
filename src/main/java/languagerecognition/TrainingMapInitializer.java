@@ -54,7 +54,6 @@ class TrainingMapInitializer implements FileVisitor<Path> {
 
             /* decode the buffer and get the text */
             final String text = UTF_8.decode(bytes).toString();
-            out.println(text + "\n\n\n");
 
             /* count quantities of English letters in this text */
             final int[] quantitiesOfEnglishLettersInTheText =
