@@ -2,8 +2,8 @@ package languagerecognition;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
 import java.nio.file.FileVisitor;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
@@ -11,67 +11,41 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.lang.System.out;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.FileVisitResult.CONTINUE;
 import static java.nio.file.StandardOpenOption.READ;
+import static java.util.regex.Pattern.compile;
 
 class Main {
-    public static void main(final String... mainArguments) {
-        final FileVisitor<Path> characterFilterAndCounter;
-    }
+    public static void main(final String... mainArguments) throws IOException {
+        final TrainingMapInitializer trainingMapInitializer =
+                    new TrainingMapInitializer();
 
-    private static class CounterOfEnglishLetters implements FileVisitor<Path> {
-        private final Map<String, double[]> languageToCharacterParts;
-        private final int[] numberOfOccurrences;
-        private int totalNumberOfOccurrences;
+        final String fileSeparator = System.getProperty("file.separator");
 
-        {
-            languageToCharacterParts = new HashMap<>();
-            numberOfOccurrences = new int[26];
-        }
+        final Path directoryWithTrainingTexts = Path.of(
+            "." + fileSeparator +
+            "src" + fileSeparator +
+            "main" + fileSeparator +
+            "resources" + fileSeparator +
+            "languages" + fileSeparator +
+            "training" + fileSeparator
+        );
 
-        @Override
-        public FileVisitResult
-        preVisitDirectory(final Path language,
-                          final BasicFileAttributes attributes) {
-            Arrays.fill(numberOfOccurrences, 0);
-            totalNumberOfOccurrences = 0;
+        Files.walkFileTree(directoryWithTrainingTexts, trainingMapInitializer);
 
-            return CONTINUE;
-        }
+        final Map<String, int[]> languagesToEnglishLettersAccumulations =
+            trainingMapInitializer.languagesToEnglishLettersAccumulations;
 
-        @Override
-        public FileVisitResult
-        visitFile(final Path contents, final BasicFileAttributes attributes) {
-            try (final FileChannel reader = FileChannel.open(contents, READ)) {
-                final ByteBuffer bytes = ByteBuffer.allocateDirect(
-                    (int) reader.size()
-                );
-
-                reader.read(bytes);
-
-                bytes.flip();
-
-                final CharBuffer characters = UTF_8.decode(bytes);
-
-                totalNumberOfOccurrences += characters.capacity();
-
-                for (int index = 0; index < characters.capacity(); ++(index)) {
-                    final char character = characters.get(index);
-
-                    if ((character >= 'A') && (character <= 'Z')) {
-                        ++(numberOfOccurrences[character - 'A']);
-                    } else if ((character >= 'a') && (character <= 'z')) {
-                        ++(numberOfOccurrences[character - 'a']);
-                    }
-                }
-            } catch (final IOException ioe) {
-                out.println(ioe.getMessage());
-            }
-
-            return CONTINUE;
+        for (final Map.Entry<String, int[]> entry:
+                 languagesToEnglishLettersAccumulations.entrySet()) {
+            out.println(
+                entry.getKey() + ": " + Arrays.toString(entry.getValue())
+            );
         }
     }
 }

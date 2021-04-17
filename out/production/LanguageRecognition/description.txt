@@ -1,0 +1,46 @@
+Plan działania:
+ - utworzyć katalog na dane;
+ - w tym katalogu utworzyć kilka (n >= 3) podkatalogów nazwanych nazwami języków
+(np. czeski, słowacki, ...);
+ - w każdym z nich umieścić po 10 tekstów trenujących ściągniętych np.
+z wikipedii w odpowiednich językach (w alfabetach łacińskich).
+Minimalna długość – 2 akapity. Oczywiście, w momencie pisania programu nie
+powinno być wiadome, ile i jakie będą języki. W momencie uruchomienia sieć
+perceptronów będzie używała tych tekstów jako danych trenujących;
+ - utworzyć podobny katalog z tekstami testowymi.
+
+Opis programu: użyjemy 1-warstwowej sieci neuronowej do klasyfikowania
+języków naturalnych tekstów. Bierzemy dokument w dowolnym języku (w alfabecie
+łacińskim) z pliku ".txt", wyrzucamy wszystkie znaki poza literami alfabetu
+angielskiego (ascii) i przerabiamy na 26-elementowy wektor proporcji liter
+(czyli: jaka jest proporcja 'a', 'b', 'c', ..., 'z'). Okazuje się, ze taki
+wektor rozkładu znaków wystarcza do rozróżniania języka naturalnego dokumentu
+tekstowego, nawet dla tak podobnych języków jak np. czeski i słowacki.
+Tworzymy więc jedną warstwę n perceptronów (gdzie n to liczba języków) i
+uczymy każdego perceptrona rozpoznawać "jego" język.
+
+Uczenie/testowanie perceptronów – dwa warianty:
+1) przeprowadzamy jak w poprzednim projekcie, tzn. z dyskretną binarną (0-1)
+funkcją aktywacji, a podczas testowania wybieramy wyjście z odpowiedzią 1;
+2) odpowiedzi kodujemy na (-1 i 1 zamiast 0 i 1), normalizujemy wektory wejść
+i wag perceptronów. Jako funkcję aktywacji użyjemy funkcji identycznościowej
+f(net) = net, po każdej iteracji wektor wag ponownie normalizujemy,
+a uczenie przerywamy, kiedy błąd |d-y| spadnie poniżej wybranego progu
+(np. 0.01). Podczas testowania  zwycięża perceptron z najwyższą wartością
+wyjścia (maximum selektor).
+
+Testujemy sieć na danych testowych, wydrukujemy miary ewaluacji klasyfikatora:
+ - macierz omyłek,
+ - dokładność,
+ - precyzję,
+ - pełność,
+ - F-miarę dla każdego języka.
+
+Zapewnić okienko tekstowe do testowania: po nauczeniu wpiszemy lub wklejamy
+dowolny nowy tekst w danym języku i sprawdzamy, czy sieć prawidłowo go
+klasyfikuje.
+
+Nie można używać żadnych bibliotek ML, wszystko ma być zaimplementowane od zera
+w pętlach, ifach, odleglość też sam ma liczyć używając dzialań arytmetycznych
+(do operacji na liczbach można używać java.lang.Math), etc.
+Można używać java.util.
