@@ -1,10 +1,14 @@
-Este sistema sirve únicamente para informar sobre errores en los artículos de Wikipedia.
+Este sistema sirve únicamente para informar sobre errores en los artículos de
+Wikipedia.
 
-Si has encontrado un error, por favor, intenta arreglarlo tú mismo; la tecnología wiki permite que cualquiera pueda editar artículos.
+Si has encontrado un error, por favor, intenta arreglarlo tú mismo; la
+tecnología wiki permite que cualquiera pueda editar artículos.
 
-No dudes en hacerlo, una de las reglas de Wikipedia dice «¡sé valiente editando páginas!».
+No dudes en hacerlo, una de las reglas de Wikipedia dice «¡sé valiente editando
+páginas!».
 
-Si no puedes o no sabes arreglar el error, entonces infórmanos de él usando este formulario.
+Si no puedes o no sabes arreglar el error, entonces infórmanos de él usando este
+formulario.
 
 Si el error ya se ha corregido, no lo informes.
 
@@ -14,4 +18,16 @@ Ver los informes de error actuales.
 
 Lee los términos de uso y la política de privacidad.
 
-Atención. Tu dirección IP quedará registrada en el historial y podrá verse. Puedes crearte una cuenta de usuario.
+Atención. Tu dirección IP quedará registrada en el historial y podrá verse.
+Puedes crearte una cuenta de usuario.
+
+El sencillo fue publicado con "Down Home Town" como cara B. "Down Home Town"
+apareció previamente en el quinto álbum del grupo Face the Music, y fue también
+utilizado como cara B de la edición estadounidense del sencillo "Last Train to
+London". La introducción de la canción contiene un mensaje en forma de
+backmasking con el coro de "Waterfall", anterior tema en Face the Music,
+reproducido al revés. Según Patrick Guttenbacher: "Otro mensaje en backmasking
+fue usado al comienzo de "Down Home Town" cantando dos veces: "There is the
+mighty waterfall". Esas palabras grabadas al revés fueron usadas por el efecto
+del sonido, pero algunos fundamentalistas cristianos [sic] en los Estados Unidos
+aseguraban que oyeron "mensajes satánicos ocultos en el disco".

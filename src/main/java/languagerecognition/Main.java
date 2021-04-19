@@ -47,6 +47,9 @@ class Main {
             out.println(
                 entry.getKey() + ": " + Arrays.toString(entry.getValue())
             );
+            out.println(CounterOfEnglishLetters.totalQuantityOfEnglishLetters(
+                entry.getValue()
+            ));
 
             LanguageRecognizer.putNewTrainingObservation(
                 entry.getKey(), entry.getValue()
@@ -57,13 +60,20 @@ class Main {
             LanguageRecognizer.specializingIn("Spanish");
         forSpanish.train();
 
-        final String text = "Designa-se por embarcação, grande barco e/ou \"nave\" (utilizado no Brasil muitas vezes como sendo de mesma espécie, segundo a maioria dos dicionários), porém para os especialistas existe distinção a todas as construções de grande porte, cujo objetivo é navegar, tanto no mar, como em lagos, rios, etc, independentemente do tamanho, forma de propulsão, calado função ou material de construção, dai a contradição dos dicionários com a técnica de construção naval.\n" +
+        final String text = "Un plebiscito constitucional fue realizado en Brasil el 21 de abril de 1993\n" +
+            "tras la restauración de la democracia y la redacción de una nueva constitución\n" +
+            "por la Asamblea Constituyente. En el proceso los brasileños escogieron entre dos\n" +
+            "posibles formas de gobierno; la monarquía o la república y el sistema\n" +
+            "presidencialista o parlamentarista. El referéndum fue regulado por la ley\n" +
+            "federal 8.624.\n" +
             "\n" +
-            "As embarcações, dividem-se por vários tipos entre os quais se destacam: barcos de grande porte, navios, botes de uso Militar, que se transformam em Pontes flutuantes, pela Engenharia Militar, e outros como o da figura, que podem ser estendidos, com ligaduras, formando um grande plano de transporte, como os catamarãs de dois, três ou mais cascos. Estes ainda se subdividem em grupos, sub-grupos, famílias, com base em inúmeros critérios navais.\n" +
-            "\n" +
-            "Dada a utilização generalizada do termo \"barco\" como unidades de boca (convés a quilha), ponte (boreste a bombordo) e pequeno calado (área submersa), vemos muitas vezes de forma errada à divisão entre embarcação e barco, ou entre embarcação e navio, devido ao pequeno navio e nave (soma de navios). Na realidade tanto um como o outro são primeiramente embarcações, devido a possibilidade de se processar nas suas unidades, dessa forma, e só depois Barco ou pequeno Navio, sendo veleiro, moto propulsado ou velomotor. Da mesma forma que um submarino convencional e um submarino atômico, às vezes do tamanho de pequenos porta-aviões ou balsas que possibilitam as justas posições, são embarcações. Ou seja, todos os barcos são embarcações, mas nem todas as embarcações são barcos, pois embarcação é maior que barco, no Brasil.\n" +
-            "\n" +
-            "O que distingue um pequeno Navio de um barco, segundo os dicionários é o seu uso especifico ou seja, o porta-aviões é um grande navio, como o é também o submarino, os pequenos e grandes barcos tanto grandes como pequenos, de uso genérico como os chamados Iates em que existem verdadeiros Transatlânticos, são barcos grandes, embora haja Iates com o tamanho de pequenos navios.";
+            "Brasil contó con una monarquía durante un período de su historia, el Imperio de\n" +
+            "Brasil cuyo último emperador fue Pedro II. La monarquía fue abolida en 1889.\n" +
+            "El diputado federal Antônio Henrique Bittencourt da Cunha Bueno, monarquista y\n" +
+            "miembro del conservador Partido Social Demócrata propuso la restauración de la\n" +
+            "monarquía ante el Congreso argumentando que la deposición del monarca no se\n" +
+            "hizo por medios democráticos sino por un golpe de estado. Bueno formó el\n" +
+            "Movimiento Monárquico Parlamentario para hacer campaña a favor de la monarquía";
         final int[] i =
             CounterOfEnglishLetters.quantitiesOfEnglishLetters(text);
 
@@ -75,7 +85,7 @@ class Main {
 
         d[26] = -1;
 
-        Utilities.normalizeVector(d);
+        //Utilities.normalizeVector(d);
 
         final LanguageRecognizer forFrench =
             LanguageRecognizer.specializingIn("French");

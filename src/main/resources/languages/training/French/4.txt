@@ -1,8 +1,17 @@
 Ajouter cette page à votre livre
-Ajoute l'article (la page) sur lequel vous êtes à votre livre (votre collection).
+Ajoute l'article (la page) sur lequel vous êtes à votre livre
+(votre collection).
 Afficher le livre
-Ouvre une page qui liste tous les articles (toutes les pages) que vous avez déjà ajoutés à votre livre. Sur cette page, vous pouvez changer l'ordre des articles dans votre livre et structurer votre livre en ajoutant des chapitres. Par ailleurs, vous pouvez aussi télécharger votre livre au format PDF, au format ODF, ou commander un livre imprimé.
+Ouvre une page qui liste tous les articles (toutes les pages)
+que vous avez déjà ajoutés à votre livre. Sur cette page, vous pouvez changer
+l'ordre des articles dans votre livre et structurer votre livre en ajoutant des
+chapitres. Par ailleurs, vous pouvez aussi télécharger votre livre au format
+PDF, au format ODF, ou commander un livre imprimé.
 Suggérer des pages
-Cet outil analyse les pages déjà présentes dans votre livre et vous suggère des articles qui pourraient s'inscrire dans le sujet général de votre livre. Cela permet d'ajouter à votre collection d'articles des articles auxquels vous n'auriez peut-être pas pensé et de créer votre livre plus rapidement.
+Cet outil analyse les pages déjà présentes dans votre livre et vous suggère
+des articles qui pourraient s'inscrire dans le sujet général de votre livre.
+Cela permet d'ajouter à votre collection d'articles des articles auxquels vous
+n'auriez peut-être pas pensé et de créer votre livre plus rapidement.
 Désactiver
-Pour désactiver le créateur de livres. Attention, déactiver le créateur de livres supprime votre livre en cours, sauf si vous l'avez déjà sauvegardé.
+Pour désactiver le créateur de livres. Attention, déactiver le créateur de
+livres supprime votre livre en cours, sauf si vous l'avez déjà sauvegardé.

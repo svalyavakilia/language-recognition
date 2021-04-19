@@ -1,3 +1,32 @@
-Cada sistema lógico possui um componente sintático, que entre outras coisas determina a noção de demonstrabilidade, e um componente semântico, o qual determina a noção de validade lógica. Além disso, as fórmulas logicamente válidas de um sistema às vezes são chamadas de teoremas do sistema, especialmente no contexto da lógica de primeira ordem, em que o teorema da completude de Gödel estabelece a equivalência de consequência semântica e sintática. Em outros ramos, como na lógica linear, a relação consequência sintática pode ser usada para definir os teoremas de um sistema.
+Cada sistema lógico possui um componente sintático, que entre outras coisas
+determina a noção de demonstrabilidade, e um componente semântico, o qual
+determina a noção de validade lógica. Além disso, as fórmulas logicamente
+válidas de um sistema às vezes são chamadas de teoremas do sistema,
+especialmente no contexto da lógica de primeira ordem, em que o teorema da
+completude de Gödel estabelece a equivalência de consequência semântica e
+sintática. Em outros ramos, como na lógica linear, a relação consequência
+sintática pode ser usada para definir os teoremas de um sistema.
 
-Um sistema lógico é decidível se existe um método eficaz para determinar se fórmulas arbitrárias são teoremas do sistema. Por exemplo, a lógica proposicional é decidível, pois o método da tabela verdade pode ser usado para determinar se uma fórmula arbitrária proposicional é logicamente válida.
+Um sistema lógico é decidível se existe um método eficaz para determinar se
+fórmulas arbitrárias são teoremas do sistema. Por exemplo, a lógica
+proposicional é decidível, pois o método da tabela verdade pode ser usado
+para determinar se uma fórmula arbitrária proposicional é logicamente válida.
+
+Nova Vida é um álbum de estúdio do cantor de rock cristão PG, lançado em junho
+de 2014, sendo o último lançamento do artista pela MK Music.
+
+Caracterizado por ser um disco de sonoridade recorrente dos anteriores, o
+projeto recebeu críticas negativas da mídia especializada, embora PG tenha o
+definido como um álbum que comemore seus dez anos de carreira solo, desde que
+saiu da Oficina G3.
+
+A música escolhida para ser single foi "Toda Lágrima".
+
+Tornou-se conhecido durante sua passagem pelo Arsenal, onde atuou de 1996 a
+2005, vencendo três vezes a Premier League — uma de forma invicta — e quatro
+Copas da Inglaterra, tornando-se, eventualmente, o capitão da equipe. Após
+deixar o Arsenal, em 2005, ele jogou por uma temporada na Juventus, antes de
+assinar com a Internazionale, em 2006, após o Calciopoli, que culminou com o
+rebaixamento da equipe bianconera. Ele possui 107 partidas pela Seleção
+Francesa, tendo integrado o plantel campeão da Copa do Mundo de 1998, da
+Eurocopa de 2000 e da Copa das Confederações de 2001.

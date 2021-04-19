@@ -14,8 +14,8 @@ class LanguageRecognizer {
     private static final Map<String, double[]> normalizedTrainingObservations;
 
     static {
-        MAXIMUM_NUMBER_OF_EPOCHS = 750;
-        LEARNING_RATE = 0.25;
+        MAXIMUM_NUMBER_OF_EPOCHS = 500;
+        LEARNING_RATE = 1;
         PERMITTED_ERROR = 0.4;
         normalizedTrainingObservations = new HashMap<>();
     }
@@ -55,7 +55,7 @@ class LanguageRecognizer {
 
         normalizedEnglishLettersAccumulations[26] = (-1);
 
-        Utilities.normalizeVector(normalizedEnglishLettersAccumulations);
+        //Utilities.normalizeVector(normalizedEnglishLettersAccumulations);
 
         normalizedTrainingObservations.put(
             language, normalizedEnglishLettersAccumulations
@@ -69,68 +69,40 @@ class LanguageRecognizer {
         double currentError = Double.MAX_VALUE;
 
         while (nextEpochNumber < MAXIMUM_NUMBER_OF_EPOCHS) {
-            out.println("Training " + language + " recognizer...");
             for (final Entry<String, double[]> trainingObservation:
                      normalizedTrainingObservations.entrySet()) {
                 final double[] vectorOfInputs = trainingObservation.getValue();
-                normalizeVector(weightsAndThreshold);
+                //normalizeVector(weightsAndThreshold);
                 double net = countNet(trainingObservation.getValue());
-
-                out.println("net == " + net + ", epoch == " + nextEpochNumber);
 
                 boolean shouldActivate = trainingObservation.getKey().equals(
                     this.language
                 );
 
                 if ((net >= 0) && shouldActivate) {
-                    out.print("Activated and should! ");
-                    currentError = 1 - net;
 
-
-                    out.println("After training net == " + net);
                 } else if ((net < 0) && !shouldActivate) {
-                    /* is ok */out.print("Not activated and should not! ");
-                    currentError = (-1) - net;
 
-
-                    out.println("After training net == " + net);
                 } else if ((net >= 0) && !shouldActivate) {
-                    out.print("Activated, but should not. ");
-                    currentError = (-1) - net;
-
                     while (net >= 0) {
                         recalculateWeightsAndThreshold(vectorOfInputs, (0 - 1));
 
-                        normalizeVector(weightsAndThreshold);
+                        //normalizeVector(weightsAndThreshold);
 
                         net = countNet(vectorOfInputs);
-
-                        currentError = (-1) - net;
                     }
-                    out.println("After training net == " + net);
                 } else /* ((net < 0) && shouldActivate) */ {
-                    out.print("Not activated, but should. ");
-                    currentError = 1 - net;
-
                     while (net < 0) {
                         recalculateWeightsAndThreshold(vectorOfInputs, (1 - 0));
 
-                        normalizeVector(weightsAndThreshold);
+                        //normalizeVector(weightsAndThreshold);
 
                         net = countNet(vectorOfInputs);
-
-                        currentError = 1 - net;
                     }
-                    out.println("After training net == " + net);
                 }
             }
 
             ++(nextEpochNumber);
-        }
-
-        for (final Entry<String, double[]> e:
-                 normalizedTrainingObservations.entrySet()) {
-            out.println(e.getKey() + ": " + countNet(e.getValue()));
         }
     }
 
@@ -138,7 +110,7 @@ class LanguageRecognizer {
         weightsAndThreshold = new double[27];
 
         for (int index = 0; index < weightsAndThreshold.length; ++(index)) {
-            weightsAndThreshold[index] = Math.random() * 24 - 12; //[-12, 12)
+            weightsAndThreshold[index] = Math.random() * 2 - 1; //[-1, 1)
         }
     }
 
