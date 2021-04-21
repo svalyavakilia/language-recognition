@@ -14,8 +14,8 @@ class LanguageRecognizer {
     private static final Map<String, double[]> normalizedTrainingObservations;
 
     static {
-        MAXIMUM_NUMBER_OF_EPOCHS = 500;
-        LEARNING_RATE = 0.1;
+        MAXIMUM_NUMBER_OF_EPOCHS = 1000;
+        LEARNING_RATE = 0.025;
         PERMITTED_ERROR = 0.4;
         normalizedTrainingObservations = new HashMap<>();
     }
@@ -100,7 +100,7 @@ class LanguageRecognizer {
         weightsAndThreshold = new double[27];
 
         for (int index = 0; index < weightsAndThreshold.length; ++(index)) {
-            weightsAndThreshold[index] = Math.random(); //[0, 1)
+            weightsAndThreshold[index] = Math.random() * 1; //[0, 1)
         }
     }
 
