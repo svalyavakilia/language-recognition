@@ -21,10 +21,12 @@ import static java.util.regex.Pattern.compile;
 
 class TrainingMapInitializer implements FileVisitor<Path> {
             final Map<String, int[]> languagesToEnglishLettersAccumulations;
+            final Map<String, LanguageRecognizer> languagesToRecognizers;
     private final int[] englishLettersAccumulations;
 
     {
         languagesToEnglishLettersAccumulations = new HashMap<>();
+        languagesToRecognizers = new HashMap<>();
         englishLettersAccumulations = new int[26];
     }
 
@@ -96,12 +98,19 @@ class TrainingMapInitializer implements FileVisitor<Path> {
         final Matcher matcher = languageInThePath.matcher(directory.toString());
 
         if (matcher.find()) {
+            final String language = matcher.group(1);
+
             languagesToEnglishLettersAccumulations.put(
                 matcher.group(1),
                 Arrays.copyOf(
                     englishLettersAccumulations,
                     englishLettersAccumulations.length
                 )
+            );
+
+            languagesToRecognizers.put(
+                matcher.group(1),
+                LanguageRecognizer.specializingIn(language)
             );
         }
 

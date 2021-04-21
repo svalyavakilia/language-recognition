@@ -15,7 +15,7 @@ class LanguageRecognizer {
 
     static {
         MAXIMUM_NUMBER_OF_EPOCHS = 500;
-        LEARNING_RATE = 1;
+        LEARNING_RATE = 0.1;
         PERMITTED_ERROR = 0.4;
         normalizedTrainingObservations = new HashMap<>();
     }
@@ -66,36 +66,26 @@ class LanguageRecognizer {
         initializeAndRandomizeWeightsAndThreshold();
 
         int nextEpochNumber = 1;
-        double currentError = Double.MAX_VALUE;
 
         while (nextEpochNumber < MAXIMUM_NUMBER_OF_EPOCHS) {
             for (final Entry<String, double[]> trainingObservation:
                      normalizedTrainingObservations.entrySet()) {
                 final double[] vectorOfInputs = trainingObservation.getValue();
-                //normalizeVector(weightsAndThreshold);
                 double net = countNet(trainingObservation.getValue());
 
                 boolean shouldActivate = trainingObservation.getKey().equals(
                     this.language
                 );
 
-                if ((net >= 0) && shouldActivate) {
-
-                } else if ((net < 0) && !shouldActivate) {
-
-                } else if ((net >= 0) && !shouldActivate) {
+                if ((net >= 0) && !shouldActivate) {
                     while (net >= 0) {
                         recalculateWeightsAndThreshold(vectorOfInputs, (0 - 1));
-
-                        //normalizeVector(weightsAndThreshold);
 
                         net = countNet(vectorOfInputs);
                     }
                 } else /* ((net < 0) && shouldActivate) */ {
                     while (net < 0) {
                         recalculateWeightsAndThreshold(vectorOfInputs, (1 - 0));
-
-                        //normalizeVector(weightsAndThreshold);
 
                         net = countNet(vectorOfInputs);
                     }
@@ -110,7 +100,7 @@ class LanguageRecognizer {
         weightsAndThreshold = new double[27];
 
         for (int index = 0; index < weightsAndThreshold.length; ++(index)) {
-            weightsAndThreshold[index] = Math.random() * 2 - 1; //[-1, 1)
+            weightsAndThreshold[index] = Math.random(); //[0, 1)
         }
     }
 
