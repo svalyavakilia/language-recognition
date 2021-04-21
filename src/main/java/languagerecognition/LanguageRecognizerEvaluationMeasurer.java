@@ -118,7 +118,7 @@ public class LanguageRecognizerEvaluationMeasurer implements FileVisitor<Path> {
                 (activatedAndShouldTo + notActivatedButShouldTo);
         final double f = 2 * p * r / (p + r);
 
-        final double precision =
+        final double accuracy =
             (double) (activatedAndShouldTo + notActivatedAndShouldNotTo)
                 /
                 (activatedAndShouldTo
@@ -126,23 +126,48 @@ public class LanguageRecognizerEvaluationMeasurer implements FileVisitor<Path> {
                     activatedButShouldNotTo
                  + notActivatedButShouldTo + notActivatedAndShouldNotTo);
 
-        out.println("classified as -> | " + language + " | other language");
+        final int p0 = 18;
+        final int p1 = 1 + language.length() + 1;
+        final int p2 = 16;
+
+        printLineDivider(p0, p1, p2);
+        out.println("| classified as -> | " + language + " | other language |");
+        printLineDivider(p0, p1, p2);
         out.printf(
-            "%-17s| %" + language.length() + "d | %d%n",
+            "| %-17s| %" + language.length() + "d | %" + (p2 - 2) +"d |%n",
             language,
             activatedAndShouldTo,
             notActivatedButShouldTo
         );
-
+        printLineDivider(p0, p1, p2);
         out.printf(
-            "other language   | %" + language.length() + "d | %d%n",
+            "| other language   | %" + language.length() +
+            "d | %" + (p2 - 2) + "d |%n",
             activatedButShouldNotTo,
             notActivatedAndShouldNotTo
         );
+        printLineDivider(p0, p1, p2);
 
-        out.println("Precision = " + precision);
+        out.println("Accuracy = " + accuracy);
         out.println("P == " + p);
         out.println("R == " + r);
         out.println("F == " + f);
+    }
+
+
+    private void printLineDivider(int p0, int p1, int p2) {
+        out.print('+');
+        for (int i = 0; i < p0; ++(i)) {
+            out.print('-');
+        }
+        out.print('+');
+        for (int i = 0; i < p1; ++(i)) {
+            out.print('-');
+        }
+        out.print('+');
+        for (int i = 0; i < p2; ++(i)) {
+            out.print('-');
+        }
+        out.println('+');
     }
 }
