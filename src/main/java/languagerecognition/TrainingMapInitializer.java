@@ -112,6 +112,8 @@ class TrainingMapInitializer implements FileVisitor<Path> {
                 matcher.group(1),
                 LanguageRecognizer.specializingIn(language)
             );
+
+            Main.lrs.add(LanguageRecognizer.specializingIn(language));
         }
 
         return CONTINUE;

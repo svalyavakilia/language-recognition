@@ -18,7 +18,7 @@ import static java.nio.file.FileVisitResult.CONTINUE;
 import static java.nio.file.StandardOpenOption.READ;
 import static java.util.regex.Pattern.compile;
 
-public class LanguageRecognizerEvaluationMeasurer implements FileVisitor<Path> {
+public class EvaluationMeasurer implements FileVisitor<Path> {
     private final LanguageRecognizer languageRecognizer;
     private int activatedAndShouldTo;
     private int activatedButShouldNotTo;
@@ -26,7 +26,7 @@ public class LanguageRecognizerEvaluationMeasurer implements FileVisitor<Path> {
     private int notActivatedAndShouldNotTo;
     private String currentLanguage;
 
-    public LanguageRecognizerEvaluationMeasurer(final LanguageRecognizer lr) {
+    public EvaluationMeasurer(final LanguageRecognizer lr) {
         languageRecognizer = lr;
     }
 
