@@ -1,35 +1,31 @@
 package languagerecognition;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import java.nio.file.Files;
-import java.nio.file.FileVisitor;
-import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
-import java.nio.file.attribute.BasicFileAttributes;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import static java.lang.System.out;
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static java.nio.file.FileVisitResult.CONTINUE;
-import static java.nio.file.StandardOpenOption.READ;
+import static java.time.temporal.ChronoUnit.SECONDS;
 import static java.util.Map.Entry;
-import static java.util.regex.Pattern.compile;
 
 class Main {
-    static final List<LanguageRecognizer> lrs = new ArrayList<>();
+    static final List<LanguageRecognizer> recognizers = new ArrayList<>();
 
     public static void main(final String... mainArguments) throws IOException {
         final TrainingMapInitializer trainingMapInitializer =
-                    new TrainingMapInitializer();
+            new TrainingMapInitializer();
 
         final String fileSeparator = System.getProperty("file.separator");
 
@@ -63,9 +59,9 @@ class Main {
 
         final List<EvaluationMeasurer> ems = new ArrayList<>();
 
-        for (final LanguageRecognizer lr: lrs) {
-            lr.train();
-            ems.add(new EvaluationMeasurer(lr));
+        for (final LanguageRecognizer recognizer: recognizers) {
+            recognizer.train();
+            ems.add(new EvaluationMeasurer(recognizer));
         }
 
         final Path directoryWithTestingTexts = Path.of(
@@ -82,53 +78,60 @@ class Main {
             em.evaluateLanguageRecognizer();
         }
 
+        final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        final int rootWidth = screen.width;
+        final int rootHeight = screen.height;
+
         JFrame window = new JFrame("Language recognition");
-        JPanel panel = new JPanel();
-        panel.setPreferredSize(new java.awt.Dimension(600, 400));
+        JPanel root = new JPanel();
+        root.setPreferredSize(new Dimension(rootWidth, rootHeight));
         JTextArea jTextArea = new JTextArea();
-        jTextArea.setPreferredSize(new java.awt.Dimension(200, 200));
+        jTextArea.setPreferredSize(new Dimension(rootWidth / 2, rootHeight));
         jTextArea.setLineWrap(true);
-        JLabel label = new JLabel();
+        JLabel classification = new JLabel();
+        classification.setPreferredSize(
+            new Dimension(rootWidth / 8, rootHeight / 12)
+        );
         JButton recognize = new JButton("Recognize!");
+        recognize.setPreferredSize(
+            new Dimension(rootWidth / 8, rootHeight / 12)
+        );
         recognize.addActionListener(listener -> {
             final String text = jTextArea.getText();
 
-            LanguageRecognizer max = lrs.get(0);
+            LanguageRecognizer max = recognizers.get(0);
 
-            final double[] vectorOfInputs = new double[27];
-            vectorOfInputs[26] = (-1);
-
-            int index = 0;
-            for (final int coordinate:
-                     CounterOfEnglishLetters.quantitiesOfEnglishLetters(text)) {
-                vectorOfInputs[(index)++] = coordinate;
-            }
+            final int[] vectorOfInputs = Utilities.addMinusOne(
+                CounterOfEnglishLetters.quantitiesOfEnglishLetters(text)
+            );
 
             double currentMaxNet = max.classify(vectorOfInputs);
 
-            index = 1;
-            for (; index < lrs.size(); ++(index)) {
-                final double currentNet = lrs.get(index).classify(
+            int index = 1;
+            for (; index < recognizers.size(); ++(index)) {
+                final double currentNet = recognizers.get(index).classify(
                                               vectorOfInputs
                                           );
 
-                if (lrs.get(index).classify(vectorOfInputs) > currentMaxNet) {
+                if (recognizers.get(index).classify(vectorOfInputs) > currentMaxNet) {
                     currentMaxNet = currentNet;
-                    max = lrs.get(index);
+                    max = recognizers.get(index);
                 }
             }
 
-            label.setText(max.language);
+            classification.setText(
+                LocalTime.now().truncatedTo(SECONDS) + " " + max.language
+            );
         });
 
-        panel.add(jTextArea);
-        panel.add(label);
-        panel.add(recognize);
+        root.add(jTextArea);
+        root.add(classification);
+        root.add(recognize);
 
-        window.setContentPane(panel);
+        window.setContentPane(root);
+        window.pack();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLocationRelativeTo(null);
-        window.pack();
         window.setVisible(true);
     }
 }

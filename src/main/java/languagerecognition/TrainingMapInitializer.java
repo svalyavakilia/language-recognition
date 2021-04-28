@@ -113,7 +113,7 @@ class TrainingMapInitializer implements FileVisitor<Path> {
                 LanguageRecognizer.specializingIn(language)
             );
 
-            Main.lrs.add(LanguageRecognizer.specializingIn(language));
+            Main.recognizers.add(LanguageRecognizer.specializingIn(language));
         }
 
         return CONTINUE;

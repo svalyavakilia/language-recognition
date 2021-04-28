@@ -7,7 +7,6 @@ import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,8 +25,8 @@ public class EvaluationMeasurer implements FileVisitor<Path> {
     private int notActivatedAndShouldNotTo;
     private String currentLanguage;
 
-    public EvaluationMeasurer(final LanguageRecognizer lr) {
-        languageRecognizer = lr;
+    public EvaluationMeasurer(final LanguageRecognizer languageRecognizer) {
+        this.languageRecognizer = languageRecognizer;
     }
 
     @Override
@@ -56,30 +55,23 @@ public class EvaluationMeasurer implements FileVisitor<Path> {
 
             final String text = UTF_8.decode(bytes).toString();
 
-            final int[] occurrences =
-                CounterOfEnglishLetters.quantitiesOfEnglishLetters(text);
+            final int[] occurrences = Utilities.addMinusOne(
+                CounterOfEnglishLetters.quantitiesOfEnglishLetters(text)
+            );
 
-            final double[] toDouble = new double[27];
-
-            for (int i = 0; i < 26; ++(i)) {
-                toDouble[i] = occurrences[i];
-            }
-
-            toDouble[26] = -1;
-
-            final double net = languageRecognizer.classify(toDouble);
+            final double net = languageRecognizer.classify(occurrences);
 
             final boolean shouldActivate = languageRecognizer.language.equals(
                 currentLanguage
             );
 
-            if (net >= 0 && shouldActivate) {
+            if ((net >= 0) && shouldActivate) {
                 ++activatedAndShouldTo;
-            } else if (net >= 0 && !shouldActivate) {
+            } else if ((net >= 0) && !shouldActivate) {
                 ++activatedButShouldNotTo;
-            } else if (net < 0 && !shouldActivate) {
+            } else if ((net < 0) && !shouldActivate) {
                 ++notActivatedAndShouldNotTo;
-            } else if (net < 0 && shouldActivate) {
+            } else if ((net < 0) && shouldActivate) {
                 ++notActivatedButShouldTo;
             }
         } catch (final IOException ioe) {
@@ -108,66 +100,74 @@ public class EvaluationMeasurer implements FileVisitor<Path> {
             "Evaluating language recognizer for the language: " + language
         );
 
-        final double p =
-            (double) activatedAndShouldTo
+        final double p = (double)
+                     activatedAndShouldTo
                      /
-                (activatedAndShouldTo + activatedButShouldNotTo);
-        final double r =
-            (double) activatedAndShouldTo
+                    (activatedAndShouldTo + activatedButShouldNotTo);
+        final double r = (double)
+                     activatedAndShouldTo
                      /
-                (activatedAndShouldTo + notActivatedButShouldTo);
-        final double f = 2 * p * r / (p + r);
+                    (activatedAndShouldTo + notActivatedButShouldTo);
+        final double f = (2 * p * r)
+                          /
+                         (p + r);
 
-        final double accuracy =
-            (double) (activatedAndShouldTo + notActivatedAndShouldNotTo)
-                /
-                (activatedAndShouldTo
-                    +
-                    activatedButShouldNotTo
-                 + notActivatedButShouldTo + notActivatedAndShouldNotTo);
+        final double accuracy = (double)
+                    (activatedAndShouldTo + notActivatedAndShouldNotTo)
+                     /
+                    (activatedAndShouldTo
+                     +
+                     activatedButShouldNotTo
+                     +
+                     notActivatedButShouldTo
+                     +
+                     notActivatedAndShouldNotTo);
 
-        final int p0 = 18;
-        final int p1 = 1 + language.length() + 1;
-        final int p2 = 16;
+        final int firstIndent = 18;
+        final int secondIndent = 1 + language.length() + 1;
+        final int thirdIndent = 16;
 
-        printLineDivider(p0, p1, p2);
+        printLineDivider(firstIndent, secondIndent, thirdIndent);
+
         out.println("| classified as -> | " + language + " | other language |");
-        printLineDivider(p0, p1, p2);
+
+        printLineDivider(firstIndent, secondIndent, thirdIndent);
+
         out.printf(
-            "| %-17s| %" + language.length() + "d | %" + (p2 - 2) +"d |%n",
+            "| %-17s| %" + language.length() +
+            "d | %" + (thirdIndent - 2) +"d |%n",
             language,
             activatedAndShouldTo,
             notActivatedButShouldTo
         );
-        printLineDivider(p0, p1, p2);
+
+        printLineDivider(firstIndent, secondIndent, thirdIndent);
+
         out.printf(
             "| other language   | %" + language.length() +
-            "d | %" + (p2 - 2) + "d |%n",
+            "d | %" + (thirdIndent - 2) + "d |%n",
             activatedButShouldNotTo,
             notActivatedAndShouldNotTo
         );
-        printLineDivider(p0, p1, p2);
 
-        out.println("Accuracy = " + accuracy);
-        out.println("P == " + p);
-        out.println("R == " + r);
-        out.println("F == " + f);
+        printLineDivider(firstIndent, secondIndent, thirdIndent);
+
+        out.println("Accuracy: " + accuracy);
+        out.println("P-measure: " + p);
+        out.println("R-measure: " + r);
+        out.println("F-measure: " + f);
     }
 
 
-    private void printLineDivider(int p0, int p1, int p2) {
+    private void printLineDivider(final int firstIndent,
+                                  final int secondIndent,
+                                  final int thirdIndent) {
         out.print('+');
-        for (int i = 0; i < p0; ++(i)) {
-            out.print('-');
-        }
+        for (int dash = 0; dash < firstIndent; ++(dash)) out.print('-');
         out.print('+');
-        for (int i = 0; i < p1; ++(i)) {
-            out.print('-');
-        }
+        for (int dash = 0; dash < secondIndent; ++(dash)) out.print('-');
         out.print('+');
-        for (int i = 0; i < p2; ++(i)) {
-            out.print('-');
-        }
+        for (int dash = 0; dash < thirdIndent; ++(dash)) out.print('-');
         out.println('+');
     }
 }
