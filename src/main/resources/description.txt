@@ -12,7 +12,7 @@ perceptronów będzie używała tych tekstów jako danych trenujących;
 Opis programu: użyjemy 1-warstwowej sieci neuronowej do klasyfikowania
 języków naturalnych tekstów. Bierzemy dokument w dowolnym języku (w alfabecie
 łacińskim) z pliku ".txt", wyrzucamy wszystkie znaki poza literami alfabetu
-angielskiego (ascii) i przerabiamy na 26-elementowy wektor proporcji liter
+angielskiego (ASCII) i przerabiamy na 26-elementowy wektor proporcji liter
 (czyli: jaka jest proporcja 'a', 'b', 'c', ..., 'z'). Okazuje się, ze taki
 wektor rozkładu znaków wystarcza do rozróżniania języka naturalnego dokumentu
 tekstowego, nawet dla tak podobnych języków jak np. czeski i słowacki.
