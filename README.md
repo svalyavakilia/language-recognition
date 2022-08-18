@@ -5,7 +5,7 @@ Only languages added to the project could be recognized correctly.
 To add a new language, you should create a new directory in _resources/languages/training_,
 which has a name of the language, and add some (or one, but big enough) **.txt** file(s) with some
 text written in this language to train the algorithm.
-You should also do the same in _resources/languages/testing_ to check, if algorithms has been
+You should also do the same in _resources/languages/testing_ to check, if algorithm has been
 trained successfully.
 
 Directory structure:
